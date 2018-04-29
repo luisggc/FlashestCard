@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'
 import { connect } from 'react-redux'
-import { DECKS_STORAGE_KEY } from '../utils/helpers';
+import { DECKS_STORAGE_KEY, sort_array } from '../utils/helpers';
 import CardAdd from './CardAdd'
 import { removeCardDB } from '../utils/api'
 import { removeCard } from '../actions'
@@ -12,7 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { gray_back } from './../utils/colors';
 
 class Deck extends Component {
-    
+
     static navigationOptions = ({ navigation }) => (
         {
             title: navigation.state.params.deck_title
@@ -49,16 +49,32 @@ class Deck extends Component {
         const { addModal, showQuestions } = this.state
         const { deck } = this.props
         const showQuestion_text = showQuestions ? "Ocultar" : "Exibir perguntas"
+        const { title, questions } = deck
+        const count = questions.length
+
         return (
             <ScrollView contentContainerStyle={styles.container} >
-
+                <View style={styles.headerView}>
+                    <Text style={styles.title} >{title}</Text>
+                    <View>
+                        <Text style={styles.description} >Número de perguntas: {count}</Text>
+                        <Text style={styles.description} >Tempos estimado: {count * 5}s</Text>
+                    </View>
+                </View>
                 <ButtonAdd onPress={this.toggleAddModal} />
-                <CardAdd title={deck.title} addModal={addModal} onClose={this.toggleAddModal} />
-                <ButtonResponse onPress={() => this.props.navigation.navigate(
-                    'Quiz',
-                    { ...deck }
-                )}
-                    text={"Quiz"} />
+                <CardAdd title={title} addModal={addModal} onClose={this.toggleAddModal} />
+
+                {count > 0 ?
+                    <ButtonResponse
+                        onPress={() => this.props.navigation.navigate(
+                            'Quiz',
+                            { title, questions: sort_array(questions) }
+                        )}
+                        text={"Quiz"} />
+                    :
+                    <Text>Adicione perguntas no botão acima</Text>
+                }
+
                 <View>
                     <ButtonResponse onPress={this.toggleDeleteCards} text={showQuestion_text} />
                     <View>
@@ -83,7 +99,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
     deleteCard: {
         width: 220,
@@ -96,6 +112,18 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         // color: gray_back,
         alignSelf: 'flex-end'
+    },
+    title: {
+        fontSize: 40,
+        textAlign: 'center'
+    },
+    description: {
+        fontSize: 15,
+        textAlign: 'center'
+    },
+    headerView: {
+        marginTop: 50,
+        marginBottom: 20
     }
 })
 

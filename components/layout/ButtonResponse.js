@@ -12,7 +12,7 @@ export default function ButtonResponse (props) {
             </Text>
                 { typeof total !== 'undefined' ? (
                     <View style={ styles.total } >
-                        <Text>{total}</Text>
+                        <Text style={{color: gray_back}}>{total}</Text>
                     </View>
                 ):null}
 
@@ -43,6 +43,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: white,
-        color: gray_back,
     }
 })

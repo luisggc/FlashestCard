@@ -16,9 +16,14 @@ class DeckAdd extends Component {
         const { title } = this.state       
         if (title === ''){
             alert('Dê um nome ao seu baralho !')
-        }else{
+        }
+        else{
             this.props.dispatch(addDeck(title))
             saveDeck(title)
+            this.props.navigation.navigate(
+                'Deck',
+                { deck_title: title }
+            )
             this.props.onClose()
         }
     }

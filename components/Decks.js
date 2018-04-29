@@ -23,7 +23,7 @@ class Decks extends Component {
             .then(() => this.setState({
                 ready: true
             }))
-            console.log("didmount")
+        console.log("didmount")
     }
 
     toggleAddModal = () => {
@@ -33,15 +33,16 @@ class Decks extends Component {
         })
     }
 
-    renderItem = ({ index, item }) => {
+    renderItem = ({ item }) => {
         return (
             <ButtonResponse
                 onPress={() =>
                     this.props.navigation.navigate(
                         'Deck',
-                        { deck_title: item }
+                        { deck_title: item.title }
                     )}
-                text={item}
+                text={item.title}
+                total={item.count}
             />
         )
     }
@@ -63,11 +64,15 @@ class Decks extends Component {
         const { decks } = this.props
         return (
             <View style={styles.container} >
-                <DeckAdd addModal={addModal} onClose={this.toggleAddModal} />
+                <DeckAdd
+                    addModal={addModal}
+                    onClose={this.toggleAddModal}
+                    navigation={this.props.navigation}
+                />
                 <FlatList
                     ListHeaderComponent={this.header}
                     data={decks}
-                    keyExtractor={(item) => item}
+                    keyExtractor={(item) => item.title}
                     renderItem={this.renderItem}
                 />
             </View>
@@ -86,7 +91,14 @@ const styles = StyleSheet.create({
 
 function mapStateToProps({ decks }) {
     return typeof decks !== 'undefined'
-        ? { decks: Object.keys(decks).map(key => decks[key].title) }
+        ? {
+            decks: Object.keys(decks).map(key => {
+                return ({
+                    title: decks[key].title,
+                    count: decks[key].questions.length,
+                })
+            })
+        }
         : { decks }
 }
 

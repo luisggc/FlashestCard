@@ -14,7 +14,7 @@ export default function ButtonAdd({ onPress }){
 const styles = StyleSheet.create({
     btn:{
         width: 220,
-        marginBottom: 10
+        marginBottom: 20
     },
     icon: { 
         alignSelf: 'flex-end',

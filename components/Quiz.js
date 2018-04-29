@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'
 import { green, red, white, black } from './../utils/colors';
+import { sort_array } from './../utils/helpers';
 
 class Quiz extends Component {
 
@@ -63,15 +64,25 @@ class Quiz extends Component {
                 </ScrollView>
             )
         }
+        // (
+        //     'Deck',
+        //     { title }
+        // )}
         else {
+            console.log("QUIZ FIMMMM!!!!")
             return (
                 <View style={styles_resume.container} >
                     <Text>{n_correct} / {all_question}</Text>
                     <Text>{Math.round(n_correct * 100 / all_question, 2)}%</Text>
                     <View>
-                        <ButtonResponse text={"Baralhos"} onPress={() => this.props.navigation.navigate('Decks')} />
+                        <ButtonResponse text={"Refazer"} onPress={() => this.props.navigation.navigate(
+                                'Quiz',
+                                { title, questions: sort_array(questions) }
+                            )}
+                        />
                         <ButtonResponse
-                            text={"Menu"} onPress={() => this.props.navigation.navigate('Home')} />
+                            text={"Voltar ao baralho"} onPress={() => this.props.navigation.goBack() }
+                        />
                     </View>
                 </View>
             )

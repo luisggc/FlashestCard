@@ -1,5 +1,9 @@
 export const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY'
 
+export function sort_array(array){
+    return array.sort(function(a, b){return 0.5-Math.random()})
+}
+
 export const dummyData = {
     ['Inglês']: {
         title: 'Inglês',
