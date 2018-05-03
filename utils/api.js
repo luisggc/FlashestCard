@@ -1,4 +1,4 @@
-import { dummyData, DECKS_STORAGE_KEY } from './helpers'
+import { dummyData, DECKS_STORAGE_KEY, NOTIFICATION_KEY } from './helpers'
 import { AsyncStorage } from 'react-native'
 
 export function fetchDecks() {
@@ -51,6 +51,7 @@ export function removeCardDB(question, title) {
             }))
         })
 }
+
 
 // export function submitEntry ({ entries, key }) {
 //     return AsyncStorage.mergeItem(CALENDAR_STORAGE_KEY, JSON.stringify({

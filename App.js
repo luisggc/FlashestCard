@@ -13,6 +13,8 @@ import Quiz from './components/Quiz'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
+import { setNotification } from './utils/helpers';
+
 
 const navigationOptions = {
   headerTintColor: white,
@@ -38,6 +40,11 @@ const MainNavigator = StackNavigator({
 
 
 export default class App extends React.Component {
+
+  componentDidMount() { 
+    setNotification()
+  }
+
   render() {
     return (
       <Provider store={ createStore(reducer) } >

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'
 import { green, red, white, black } from './../utils/colors';
-import { sort_array } from './../utils/helpers';
+import { sort_array, clearLocalNotification } from './../utils/helpers';
 
 class Quiz extends Component {
 
@@ -29,6 +29,10 @@ class Quiz extends Component {
             n_question,
             n_correct
         })
+    }
+
+    endquiz = () => {
+        clearLocalNotification()
     }
 
     render() {
@@ -69,7 +73,7 @@ class Quiz extends Component {
         //     { title }
         // )}
         else {
-            console.log("QUIZ FIMMMM!!!!")
+            this.endquiz()
             return (
                 <View style={styles_resume.container} >
                     <Text>{n_correct} / {all_question}</Text>
