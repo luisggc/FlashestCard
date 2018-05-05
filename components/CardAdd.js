@@ -5,7 +5,7 @@ import { gray, white } from './../utils/colors'
 import Modal from "react-native-modal"
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
-import { saveCard } from '../utils/api';
+import { saveCard } from '../utils/api'
 
 class CardAdd extends Component {
     state = {

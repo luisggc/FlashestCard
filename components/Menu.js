@@ -9,14 +9,14 @@ import { white } from '../utils/colors'
 
 class Menu extends Component {
 
-    state= {
+    state = {
         addModal: false
     }
 
     componentDidMount() {
         fetchDecks()
-            .then( decks => this.props.dispatch(receiveDecks(decks)) )
-    }   
+            .then(decks => this.props.dispatch(receiveDecks(decks)))
+    }
 
     toggleAddModal = () => {
         const addModal = !this.state.addModal
@@ -25,16 +25,14 @@ class Menu extends Component {
         })
     }
 
-    render(){
+    render() {
         const { addModal } = this.state
-        // console.log("render\n")
-        console.log(JSON.stringify(this.props))
 
         return (
-            <View style={ styles.container } >
-                <ButtonResponse text={"Baralhos"} onPress={ () => this.props.navigation.navigate('Decks') } />
-                <ButtonResponse text={"Criar Baralho"} onPress={ this.toggleAddModal } />
-                <DeckAdd addModal={ addModal } onClose={ this.toggleAddModal } />
+            <View style={styles.container} >
+                <ButtonResponse text={"Baralhos"} onPress={() => this.props.navigation.navigate('Decks')} />
+                <ButtonResponse text={"Criar Baralho"} onPress={this.toggleAddModal} />
+                <DeckAdd addModal={addModal} onClose={this.toggleAddModal} />
             </View>
         )
     }
@@ -49,7 +47,7 @@ const styles = StyleSheet.create({
     }
 })
 
-function mapStateToProps(decks){
+function mapStateToProps(decks) {
     return decks
 }
 

@@ -1,12 +1,12 @@
 import { ADD_DECK, ADD_CARD, RECEIVE_CARD, REMOVE_CARD } from '../actions'
 
-function reducer (state= {}, action){
+function reducer(state = {}, action) {
     const { title, question, answer, decks } = action
-    //Title = Deck Title
-    switch (action.type){
+
+    switch (action.type) {
 
         case RECEIVE_CARD:
-            return {decks}
+            return { decks }
 
         case ADD_DECK:
             return {
@@ -24,29 +24,29 @@ function reducer (state= {}, action){
             return {
                 ...state,
                 "decks": {
-                  ...state.decks,
-                  [title]: {
-                    title,
-                    questions: state.decks[title].questions.concat([{
-                      question,
-                      answer
-                    }])
-                  }
-                }
-              }
-
-        case REMOVE_CARD:
-        return {
-            ...state,
-            "decks": {
-                ...state.decks,
-                [title]: {
-                    title,
-                    questions: state.decks[title].questions.filter(
-                        q => q.question !== question)
+                    ...state.decks,
+                    [title]: {
+                        title,
+                        questions: state.decks[title].questions.concat([{
+                            question,
+                            answer
+                        }])
+                    }
                 }
             }
-        }
+
+        case REMOVE_CARD:
+            return {
+                ...state,
+                "decks": {
+                    ...state.decks,
+                    [title]: {
+                        title,
+                        questions: state.decks[title].questions.filter(
+                            q => q.question !== question)
+                    }
+                }
+            }
 
         default:
             return { state }

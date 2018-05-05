@@ -5,9 +5,9 @@ import { AsyncStorage } from 'react-native';
 
 export function createNotification() {
     return {
-            title: 'Não esqueça de estudar!',
-            body: "reinamento diário é fundamental para uma boa memorização",
-            ios:{
+        title: 'Não esqueça de estudar!',
+        body: "reinamento diário é fundamental para uma boa memorização",
+        ios: {
             sound: true
         },
         android: {
@@ -22,42 +22,42 @@ export function createNotification() {
 
 export function setNotification() {
     AsyncStorage.getItem(NOTIFICATION_KEY)
-    .then(JSON.parse)
-    .then((data) => {
-      if (data === null){
-        Permissions.askAsync(Permissions.NOTIFICATIONS)
-        .then(({ status }) => {
-          if ( status === 'granted') {
-            Notifications.cancelAllScheduledNotificationsAsync()
-  
-            let tomorrow = new Date()
-            tomorrow.setDate( tomorrow.getDate() + 1)
-            tomorrow.setHours(20)
-            tomorrow.setMinutes(0)
-  
-            Notifications.scheduleLocalNotificationAsync(
-              createNotification(),
-              {
-                time: tomorrow,
-                repeat: 'day',
-              }
-            )
-  
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
-  
-          }
+        .then(JSON.parse)
+        .then((data) => {
+            if (data === null) {
+                Permissions.askAsync(Permissions.NOTIFICATIONS)
+                    .then(({ status }) => {
+                        if (status === 'granted') {
+                            Notifications.cancelAllScheduledNotificationsAsync()
+
+                            let tomorrow = new Date()
+                            tomorrow.setDate(tomorrow.getDate() + 1)
+                            tomorrow.setHours(20)
+                            tomorrow.setMinutes(0)
+
+                            Notifications.scheduleLocalNotificationAsync(
+                                createNotification(),
+                                {
+                                    time: tomorrow,
+                                    repeat: 'day',
+                                }
+                            )
+
+                            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+
+                        }
+                    })
+            }
         })
-      }
-    })
 }
 
 export function clearLocalNotification() {
     return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
+        .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-export function sort_array(array){
-    return array.sort(function(a, b){return 0.5-Math.random()})
+export function sort_array(array) {
+    return array.sort(function (a, b) { return 0.5 - Math.random() })
 }
 
 export const dummyData = {

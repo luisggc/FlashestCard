@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'
 import { green, red, white, black } from './../utils/colors';
 import { sort_array, clearLocalNotification } from './../utils/helpers';
@@ -9,7 +9,19 @@ class Quiz extends Component {
     state = {
         showAnswer: false,
         n_question: 0,
-        n_correct: 0
+        n_correct: 0,
+        spinValue: new Animated.Value(0),
+    }
+
+    flipCard = () => {
+        Animated.timing(
+            this.state.spinValue,
+            {
+                toValue: 1,
+                duration: 600,
+                useNativeDriver: true
+            }
+        ).start()
     }
 
     static navigationOptions = ({ navigation }) => (
@@ -22,12 +34,18 @@ class Quiz extends Component {
         let { showAnswer, n_question, n_correct } = this.state
         showAnswer = !showAnswer
         n_question = showAnswer ? n_question : n_question + 1
-        n_correct = c ? n_correct + 1 : n_correct
+
+        if (typeof c == 'undefined') {
+            this.state.spinValue.setValue(0)
+            this.flipCard()
+        } else {
+            n_correct = n_correct + 1
+        }
 
         this.setState({
             showAnswer,
             n_question,
-            n_correct
+            n_correct,
         })
     }
 
@@ -42,13 +60,17 @@ class Quiz extends Component {
 
         if (n_question < all_question) {
             const { question, answer } = questions[n_question]
+            const spin = this.state.spinValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: ['0deg', '360deg']
+            })
             return (
-                <ScrollView contentContainerStyle={styles.container} >
+                <Animated.ScrollView contentContainerStyle={styles.container} style={{ transform: [{ rotateY: spin }] }} >
 
                     <Text style={styles.question} >{question}</Text>
 
                     {showAnswer && (
-                        <View>
+                        <View >
                             <Text style={styles.answer} >{answer}</Text>
                             <ButtonResponse textStyle={styles.textStyle}
                                 btnStyle={{ backgroundColor: green }} onPress={() => this.toggleShowAnswer(true)} text={"Acertou"}
@@ -65,27 +87,29 @@ class Quiz extends Component {
 
                     <Text>{n_question + 1} de {all_question} perguntas</Text>
 
-                </ScrollView>
+                </Animated.ScrollView>
             )
         }
-        // (
-        //     'Deck',
-        //     { title }
-        // )}
         else {
             this.endquiz()
+            const porcent = Math.round(n_correct * 100 / all_question, 2)
             return (
                 <View style={styles_resume.container} >
-                    <Text>{n_correct} / {all_question}</Text>
-                    <Text>{Math.round(n_correct * 100 / all_question, 2)}%</Text>
+                    <Text style={styles.emotion} >{porcent < 50 ? 'Uhhh, é necessário mais treino!' :
+                        porcent > 70 ? 'Excelente !!' : 'Bom, mas treino nunca é demais!'}
+                    </Text>
+                    <View>
+                        <Text style={{ fontSize: 60, textAlign: 'center' }} >{porcent}%</Text>
+                        <Text style={{ fontSize: 20, textAlign: 'center' }} >{n_correct} / {all_question}</Text>
+                    </View>
                     <View>
                         <ButtonResponse text={"Refazer"} onPress={() => this.props.navigation.navigate(
-                                'Quiz',
-                                { title, questions: sort_array(questions) }
-                            )}
+                            'Quiz',
+                            { title, questions: sort_array(questions) }
+                        )}
                         />
                         <ButtonResponse
-                            text={"Voltar ao baralho"} onPress={() => this.props.navigation.goBack() }
+                            text={"Voltar"} onPress={() => this.props.navigation.goBack()}
                         />
                     </View>
                 </View>
@@ -116,6 +140,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginBottom: 60,
         textAlign: 'center'
+    },
+    emotion: {
+        fontSize: 40,
+        textAlign: 'center',
+        marginHorizontal: 40,
     }
 })
 

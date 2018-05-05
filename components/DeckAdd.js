@@ -8,16 +8,16 @@ import { addDeck } from '../actions'
 import { saveDeck } from '../utils/api';
 
 class DeckAdd extends Component {
-    state={
-        title:''
+    state = {
+        title: ''
     }
 
-    createDeck = () => { 
-        const { title } = this.state       
-        if (title === ''){
+    createDeck = () => {
+        const { title } = this.state
+        if (title === '') {
             alert('Dê um nome ao seu baralho !')
         }
-        else{
+        else {
             this.props.dispatch(addDeck(title))
             saveDeck(title)
             this.props.navigation.navigate(
@@ -28,26 +28,24 @@ class DeckAdd extends Component {
         }
     }
 
-    render(){
+    render() {
         const { title } = this.state
         const { onClose, addModal } = this.props
         const { createDeck } = this
-        //const { toggleAddModal } = this.props
         return (
 
-            <Modal 
+            <Modal
                 isVisible={addModal}
-                onBackdropPress={ onClose }
-                // backdropOpacity= {.9}
+                onBackdropPress={onClose}
             >
-                <View style={ styles.container }>
+                <View style={styles.container}>
                     <Text style={{ fontSize: 30 }} >Adicionar Baralho</Text>
-                    <TextInput value={ title } style={ styles.input } autoFocus={ true }
-                        onChangeText={(title) => this.setState({title}) } placeholder={"Nome do baralho"} /> 
+                    <TextInput value={title} style={styles.input} autoFocus={true}
+                        onChangeText={(title) => this.setState({ title })} placeholder={"Nome do baralho"} />
                     <View>
-                        <ButtonResponse onPress={ createDeck } btnStyle={{ marginBottom:10 }} text={"Ok"} />
-                        <ButtonResponse onPress={ onClose } text={"Cancelar"} />
-                    </View>                    
+                        <ButtonResponse onPress={createDeck} btnStyle={{ marginBottom: 10 }} text={"Ok"} />
+                        <ButtonResponse onPress={onClose} text={"Cancelar"} />
+                    </View>
                 </View>
             </Modal>
         )

@@ -6,7 +6,6 @@ import { DECKS_STORAGE_KEY, sort_array } from '../utils/helpers';
 import CardAdd from './CardAdd'
 import { removeCardDB } from '../utils/api'
 import { removeCard } from '../actions'
-// import { white } from '../utils/colors'
 import ButtonAdd from './layout/ButtonAdd'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { gray_back } from './../utils/colors';
@@ -99,18 +98,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        // justifyContent: 'center',
     },
     deleteCard: {
         width: 220,
         flexDirection: 'row',
-        // alignSelf: 'center',
-        // justifyContent: 'center',
     },
     icon: {
         marginRight: 0,
         marginLeft: 'auto',
-        // color: gray_back,
         alignSelf: 'flex-end'
     },
     title: {
