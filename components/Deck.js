@@ -7,14 +7,17 @@ import CardAdd from './CardAdd'
 import { removeCardDB } from '../utils/api'
 import { removeCard } from '../actions'
 import ButtonAdd from './layout/ButtonAdd'
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 import { gray_back } from './../utils/colors';
 
 class Deck extends Component {
 
     static navigationOptions = ({ navigation }) => (
         {
-            title: navigation.state.params.deck_title
+            title: navigation.state.params.deck_title,
+            // header: () => ({
+            //     left: (<Entypo name={'arrow-left'} onPress={() => { this.props.navigation.navigate('Decks') }} />),
+            // }),
         }
     )
 

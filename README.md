@@ -20,11 +20,10 @@ Aplicativo mobile desenvolvido em React Native com a finalidade de treinar a mem
   * Lembretes para fazer um quiz todos os dias
   * Caso não haja nenhum baralho adicionado, é acionado uns baralhos de teste que são apagados logo quando é adicionado um
  
-  
-
 Testando apenas em aparelhos Android
 
-Instalação:
+
+## Instalação
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 

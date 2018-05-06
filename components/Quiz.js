@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'
 import { green, red, white, black } from './../utils/colors';
-import { sort_array, clearLocalNotification } from './../utils/helpers';
+import { sort_array, clearLocalNotification, setNotification } from './../utils/helpers';
 
 class Quiz extends Component {
 
@@ -14,6 +14,7 @@ class Quiz extends Component {
     }
 
     flipCard = () => {
+        this.state.spinValue.setValue(0)
         Animated.timing(
             this.state.spinValue,
             {
@@ -30,16 +31,15 @@ class Quiz extends Component {
         }
     )
 
-    toggleShowAnswer = (c) => {
+    toggleShowAnswer = (correct_answer) => {
         let { showAnswer, n_question, n_correct } = this.state
         showAnswer = !showAnswer
         n_question = showAnswer ? n_question : n_question + 1
 
-        if (typeof c == 'undefined') {
-            this.state.spinValue.setValue(0)
+        if (typeof correct_answer == 'undefined') {
             this.flipCard()
         } else {
-            n_correct = n_correct + 1
+            n_correct = correct_answer ? n_correct + 1 : n_correct
         }
 
         this.setState({
@@ -51,6 +51,7 @@ class Quiz extends Component {
 
     endquiz = () => {
         clearLocalNotification()
+            .then(setNotification())
     }
 
     render() {
@@ -91,8 +92,10 @@ class Quiz extends Component {
             )
         }
         else {
+
             this.endquiz()
             const porcent = Math.round(n_correct * 100 / all_question, 2)
+
             return (
                 <View style={styles_resume.container} >
                     <Text style={styles.emotion} >{porcent < 50 ? 'Uhhh, é necessário mais treino!' :
@@ -109,7 +112,10 @@ class Quiz extends Component {
                         )}
                         />
                         <ButtonResponse
-                            text={"Voltar"} onPress={() => this.props.navigation.goBack()}
+                            text={"Voltar"} onPress={() => this.props.navigation.navigate(
+                                'Deck',
+                                { deck_title: this.props.navigation.state.params.title }
+                            )}
                         />
                     </View>
                 </View>

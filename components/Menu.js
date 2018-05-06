@@ -1,3 +1,4 @@
+//Menu opcional
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'

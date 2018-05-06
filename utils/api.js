@@ -2,10 +2,13 @@ import { dummyData, DECKS_STORAGE_KEY, NOTIFICATION_KEY } from './helpers'
 import { AsyncStorage } from 'react-native'
 
 export function fetchDecks() {
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, dummyData)
+    // AsyncStorage.clear()
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((decks) => {
-            return decks === null ? dummyData : JSON.parse(decks)
+            return decks === null ? undefined : JSON.parse(decks)
+            //Comentar linha acima e descomentar as abaixo caso queira apenas dados de teste
+            //return decks === null ? dummyData : JSON.parse(decks)
+            // AsyncStorage.setItem(DECKS_STORAGE_KEY, dummyData)
         })
 }
 

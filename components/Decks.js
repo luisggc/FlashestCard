@@ -23,7 +23,6 @@ class Decks extends Component {
             .then(() => this.setState({
                 ready: true
             }))
-        console.log("didmount")
     }
 
     toggleAddModal = () => {
@@ -60,8 +59,11 @@ class Decks extends Component {
         if (!ready) {
             return <AppLoading />
         }
-        console.log("loaded")
         const { decks } = this.props
+        console.log("xxx")
+        console.log(decks)
+        console.log(this.state)
+        console.log("xxxxwdwx")
         return (
             <View style={styles.container} >
                 <DeckAdd
@@ -69,12 +71,17 @@ class Decks extends Component {
                     onClose={this.toggleAddModal}
                     navigation={this.props.navigation}
                 />
-                <FlatList
-                    ListHeaderComponent={this.header}
-                    data={decks}
-                    keyExtractor={(item) => item.title}
-                    renderItem={this.renderItem}
-                />
+                {this.header()}
+                {decks ?
+                    <FlatList
+                        // ListHeaderComponent={this.header}
+                        data={decks}
+                        keyExtractor={(item) => item.title}
+                        renderItem={this.renderItem}
+                    />
+                    : <Text>Adicione Baralhos no botão acima</Text>
+                }
+
             </View>
         )
     }

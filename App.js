@@ -1,10 +1,9 @@
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 // require('ReactFeatureFlags').warnAboutDeprecatedLifecycles = false;
 
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator  } from 'react-navigation'
-// import Menu from './components/Menu'
 import DeckAdd from './components/DeckAdd'
 import  { gray_back, gray_black, white } from './utils/colors'
 import Decks from './components/Decks'

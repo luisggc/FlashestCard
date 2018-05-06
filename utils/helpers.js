@@ -87,7 +87,7 @@ export const dummyData = {
         questions: [
             {
                 question: 'Quantas vezes Pedro negou Jesus ?',
-                answer: '2'
+                answer: '3'
             },
             {
                 question: 'Sermão do Monte, um dos mais conhecidos sermões, começa em qual livro e capítulo ?',
