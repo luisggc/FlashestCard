@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Animated } from 'react-native'
 import ButtonResponse from './layout/ButtonResponse'
 import { green, red, white, black } from './../utils/colors';
 import { sort_array, clearLocalNotification, setNotification } from './../utils/helpers';
+import styled from 'styled-components';
 
 class Quiz extends Component {
 
@@ -68,11 +69,11 @@ class Quiz extends Component {
             return (
                 <Animated.ScrollView contentContainerStyle={styles.container} style={{ transform: [{ rotateY: spin }] }} >
 
-                    <Text style={styles.question} >{question}</Text>
+                    <Quest>{question}</Quest>
 
                     {showAnswer && (
                         <View >
-                            <Text style={styles.answer} >{answer}</Text>
+                            <Quest>{answer}</Quest>
                             <ButtonResponse textStyle={styles.textStyle}
                                 btnStyle={{ backgroundColor: green }} onPress={() => this.toggleShowAnswer(true)} text={"Acertou"}
                             />
@@ -97,10 +98,10 @@ class Quiz extends Component {
             const porcent = Math.round(n_correct * 100 / all_question, 2)
 
             return (
-                <View style={styles_resume.container} >
-                    <Text style={styles.emotion} >{porcent < 50 ? 'Uhhh, é necessário mais treino!' :
+                <Container>
+                    <Emotion >{porcent < 50 ? 'Uhhh, é necessário mais treino!' :
                         porcent > 70 ? 'Excelente !!' : 'Bom, mas treino nunca é demais!'}
-                    </Text>
+                    </Emotion>
                     <View>
                         <Text style={{ fontSize: 60, textAlign: 'center' }} >{porcent}%</Text>
                         <Text style={{ fontSize: 20, textAlign: 'center' }} >{n_correct} / {all_question}</Text>
@@ -118,11 +119,32 @@ class Quiz extends Component {
                             )}
                         />
                     </View>
-                </View>
+                </Container>
             )
         }
     }
 }
+
+const Container= styled.View`
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    background-color: ${white};
+    border-radius: 10;
+    padding-top: 30;
+    padding-bottom: 10
+`
+
+const Quest= styled.Text`
+    font-size: 30;
+    margin-vertical: 60;
+    text-align: center;
+`
+const Emotion= styled.Text`
+    font-size: 40;
+    text-align: center;
+    margin-horizontal: 40;
+`
 
 const styles = StyleSheet.create({
     container: {
@@ -136,35 +158,8 @@ const styles = StyleSheet.create({
         textShadowColor: black,
         textShadowOffset: { width: 2, height: 2 },
         textShadowRadius: 10
-    },
-    question: {
-        fontSize: 30,
-        marginVertical: 60,
-        textAlign: 'center'
-    },
-    answer: {
-        fontSize: 30,
-        marginBottom: 60,
-        textAlign: 'center'
-    },
-    emotion: {
-        fontSize: 40,
-        textAlign: 'center',
-        marginHorizontal: 40,
     }
 })
 
-const styles_resume = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: white,
-        marginVertical: 80,
-        borderRadius: 10,
-        paddingTop: 30,
-        paddingBottom: 10
-    }
-})
 
 export default Quiz

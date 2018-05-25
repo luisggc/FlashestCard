@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
 import { white } from '../utils/colors'
+import styled from 'styled-components';
 
 class Menu extends Component {
 
@@ -30,23 +31,21 @@ class Menu extends Component {
         const { addModal } = this.state
 
         return (
-            <View style={styles.container} >
+            <Container>
                 <ButtonResponse text={"Baralhos"} onPress={() => this.props.navigation.navigate('Decks')} />
                 <ButtonResponse text={"Criar Baralho"} onPress={this.toggleAddModal} />
                 <DeckAdd addModal={addModal} onClose={this.toggleAddModal} />
-            </View>
+            </Container>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: white,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
+const Container= styled.Container`
+    flex: 1;
+    background-color: ${white};
+    align-items: center;
+    justify-content: center;
+`
 
 function mapStateToProps(decks) {
     return decks

@@ -19,6 +19,7 @@ export default function ButtonResponse(props) {
         </TouchableOpacity>
     )
 }
+
 const styles = StyleSheet.create({
     btn: {
         paddingVertical: 10,

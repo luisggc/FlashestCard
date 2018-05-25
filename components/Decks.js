@@ -60,10 +60,6 @@ class Decks extends Component {
             return <AppLoading />
         }
         const { decks } = this.props
-        console.log("xxx")
-        console.log(decks)
-        console.log(this.state)
-        console.log("xxxxwdwx")
         return (
             <View style={styles.container} >
                 <DeckAdd

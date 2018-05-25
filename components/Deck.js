@@ -12,14 +12,17 @@ import { gray_back } from './../utils/colors';
 
 class Deck extends Component {
 
-    static navigationOptions = ({ navigation }) => (
-        {
-            title: navigation.state.params.deck_title,
-            // header: () => ({
-            //     left: (<Entypo name={'arrow-left'} onPress={() => { this.props.navigation.navigate('Decks') }} />),
-            // }),
-        }
-    )
+    static navigationOptions = ({ navigation }) => {
+        console.log(navigation)
+        return (
+            {
+                title: navigation.state.params.deck_title,
+                // header: () => ({
+                //     left: (<Entypo name={'arrow-left'} onPress={() => { this.props.navigation.navigate('Decks') }} />),
+                // }),
+            }
+        )
+    }
 
     state = {
         addModal: false,
